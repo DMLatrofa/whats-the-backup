@@ -1,5 +1,9 @@
 # Whats The Backup
 
+## Download
+
+Download the latest Windows build from [GitHub Releases](https://github.com/DMLatrofa/whats-the-backup/releases).
+
 Whats The Backup is a desktop-first app for browsing WhatsApp export archives as a familiar chat timeline. It parses local `.zip` exports, lets you search messages, and previews attachments without uploading data to a server.
 
 ## Highlights
