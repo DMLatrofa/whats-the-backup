@@ -1,0 +1,58 @@
+{
+  "name": "@wtb/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tauri desktop app for browsing WhatsApp exports locally.",
+  "license": "MIT",
+  "homepage": "https://github.com/DMLatrofa/whats-the-backup",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DMLatrofa/whats-the-backup.git",
+    "directory": "apps/desktop"
+  },
+  "bugs": {
+    "url": "https://github.com/DMLatrofa/whats-the-backup/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "pnpm run build:web",
+    "build:web": "tsc -b && vite build",
+    "test": "vitest run --pool=threads",
+    "test:run": "pnpm run test",
+    "test:coverage": "vitest run --pool=threads --coverage",
+    "lint": "tsc -b --pretty false",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "tauri:build:windows": "tauri build --bundles nsis,msi"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.8.0",
+    "@tauri-apps/plugin-opener": "^2.4.0",
+    "@tanstack/react-virtual": "^3.13.12",
+    "@wtb/parser": "workspace:*",
+    "clsx": "^2.1.1",
+    "jszip": "^3.10.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "@tauri-apps/cli": "^2.8.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.2",
+    "@vitest/coverage-v8": "^3.2.4",
+    "autoprefixer": "^10.4.21",
+    "jsdom": "^26.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.5",
+    "vitest": "^3.2.4"
+  }
+}
+

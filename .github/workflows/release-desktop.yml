@@ -1,0 +1,70 @@
+name: Release Desktop
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to publish (for example v0.1.0)
+        required: true
+        type: string
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release-windows:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve release tag
+        id: release_tag
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ github.event.inputs.tag }}"
+          else
+            TAG="${{ github.ref_name }}"
+          fi
+
+          if [[ ! "$TAG" =~ ^v[0-9]+(\.[0-9]+){1,2}([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Release tag must look like v0.1.0" >&2
+            exit 1
+          fi
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Windows bundles
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ steps.release_tag.outputs.tag }}
+          releaseName: Whats The Backup ${{ steps.release_tag.outputs.tag }}
+          releaseBody: Desktop release for Whats The Backup.
+          releaseDraft: true
+          prerelease: false
+          args: --bundles nsis,msi

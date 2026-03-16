@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Whats The Backup",
+  "version": "0.1.0",
+  "identifier": "com.dmlatrofa.whats-the-backup",
+  "build": {
+    "beforeDevCommand": "pnpm --filter @wtb/desktop dev",
+    "beforeBuildCommand": "pnpm --filter @wtb/desktop build",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Whats The Backup",
+        "width": 1480,
+        "height": 940,
+        "minWidth": 1100,
+        "minHeight": 700
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/icon.ico"]
+  }
+}
+
